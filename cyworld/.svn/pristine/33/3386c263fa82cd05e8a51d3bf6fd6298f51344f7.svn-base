@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+   PUBLIC "-ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="mypage">
+
+	<insert id="insertProd" parameterClass="map">
+		insert into mypage ( order_no,
+			    prod_id,
+			    home_id,
+			    prod_set )
+			select a.order_no, a.prod_id, b.home_id, 'N' from cart a, home b
+			where a.order_no in (select max(order_no) from ordered where order_set in 'Y' and mem_id in #mem_id#) 
+			and a.cart_set = 'Y' and b.home_id = (select home_id from home where mem_id = #mem_id#)
+	</insert>
+
+</sqlMap>
+   

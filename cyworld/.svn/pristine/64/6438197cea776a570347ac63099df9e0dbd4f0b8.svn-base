@@ -1,0 +1,7 @@
+package home.dao;
+
+import vo.HomeVO;
+
+public interface IHomeDao {
+	public HomeVO getHomeInfo(String memId);
+}

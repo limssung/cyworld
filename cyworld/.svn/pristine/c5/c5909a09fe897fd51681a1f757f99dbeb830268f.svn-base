@@ -1,0 +1,28 @@
+package mypage.service;
+
+import java.util.Map;
+
+import mypage.dao.IMypageDao;
+import mypage.dao.MypageDaoImpl;
+
+public class MypageServiceImpl implements IMypageService {
+	
+	private IMypageDao dao;
+	
+	private static MypageServiceImpl service;
+	
+	private MypageServiceImpl() {
+		dao = MypageDaoImpl.getInstance();
+	}
+	
+	public static MypageServiceImpl getInstance() {
+		if(service == null) service = new MypageServiceImpl();
+		return service;
+	}
+	
+	@Override
+	public int insertProd(Map<String, String> map) {
+		return dao.insertProd(map);
+	}
+
+}

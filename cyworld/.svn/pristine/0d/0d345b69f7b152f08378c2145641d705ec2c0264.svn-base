@@ -1,0 +1,69 @@
+package member.service;
+
+import java.sql.SQLException;
+
+import member.dao.IMemberDao;
+import member.dao.MemberDaoImpl;
+import vo.MemberVO;
+
+public class MemberServiceImpl implements IMemberService {
+	
+	//객체를 얻어오기~ 
+	private IMemberDao dao;
+	private static IMemberService service;
+	
+	private MemberServiceImpl() {
+		dao = MemberDaoImpl.getDao();
+	}
+	public static IMemberService getService() {
+		System.out.println("99");
+		if(service == null) service = new MemberServiceImpl();
+		
+		System.out.println("service : " + service);
+		return service;
+	}
+	
+	
+	@Override
+	public String idCheck(String id) {
+		
+		String memberId = null;
+		try {
+			memberId = dao.idCheck(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return memberId;
+	}
+	@Override
+	public int insertMember(MemberVO vo) {
+		
+		int ismb = 0;
+		
+		try {
+			ismb = dao.insertMember(vo);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return ismb;
+	}
+	
+	@Override
+	public String loginCheck(MemberVO vo) throws Exception{
+		return dao.loginCheck(vo);
+	}
+	
+	@Override
+	public String getHomeId(String homeId) {
+		String home_Id = null;
+		try {
+			home_Id = dao.getHomeId(homeId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return home_Id;
+	}
+
+}

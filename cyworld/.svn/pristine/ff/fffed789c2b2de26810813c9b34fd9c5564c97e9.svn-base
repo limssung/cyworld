@@ -1,0 +1,61 @@
+<%@page import="vo.MemberVO"%>
+<%@page import="vo.HomeVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<title>내 미니홈피</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/style3.css">
+<script src="<%=request.getContextPath() %>/js/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+<%
+	//값 가져오기
+	String userid = (String)session.getAttribute("userId");
+	String homeId = (String)session.getAttribute("homeChk");
+	HomeVO homeVo = (HomeVO)request.getAttribute("homeVo");
+	MemberVO memVo =(MemberVO)request.getAttribute("memVo");
+%>
+<%
+	// 로그인인 상태!!
+	if(userid != null){
+%>
+	<div>
+		<div class="left">
+			<a href="<%=request.getContextPath()%>/images/cy_logo.png"></a>
+		</div>
+		<div class="right"></div>
+	</div>
+	<section class="mini-form">
+		<form method="post" action="#">
+			<div class="btn-area">
+				<button id="btn" type="submit">내 미니홈피로 가기</button>
+			</div>
+		</form>
+	</section>
+	<script>
+	$(function(){
+   		$("#btn").on("click",function(){
+      		window.open('<%=request.getContextPath()%>/miniHomeMain.do?userid=<%=userid%>', 'pop01', 'top=10, left=10, width=1100, height=650, status=no, menubar=no, toolbar=no, resizable=no,  location=no');
+   		})
+	});
+</script>
+<%
+}else{ //로그인상태가 아닐때
+%>  
+	<!-- 프로필사진 처리 -->
+
+	<form method="post" enctype="multipart/form-data" action="imgup.jsp">
+	</form>
+
+	<!-- 프로필사진 처리 끝 -->
+	
+	<a href="<%=request.getContextPath()%>/logout.do">로그아웃!!!!!!!!</a>
+	<p><%=userid %>님 반갑습니다.<br><br></p><br><br>
+	<br><br>
+<%
+}	
+%>
+</body>
+</html>

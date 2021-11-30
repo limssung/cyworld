@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+   PUBLIC "-ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="friend">
+
+
+   <select id="getAllFriend" parameterClass="String" resultClass="memFriendVo"><!-- FriendVO -->
+      select a.mem_name, b.friend_name from member a, friend b where a.mem_id = b.mem_id and b.home_id = #home_id#
+   </select>
+   
+   <select id="friendList" parameterClass="String" resultClass="memFriendVo">
+<!--       select mem_name, mem_id from member where mem_id in (select mem_id from friend -->
+<!--                    where home_id = #home_id#) -->
+      select a.mem_name, a.mem_id, b.home_pic from member a, home b 
+      where a.mem_id = b.mem_id and a.mem_id in (select mem_id from friend where home_id = #home_id#)
+   </select>
+   
+   <select id="searchFriend" parameterClass="memFriendVo" resultClass="memFriendVo">
+         select b.home_pic, a.mem_name, a.mem_id, b.home_text b.home_id from member a, home b where a.mem_id = b.mem_id and (a.mem_id !=#mem_id# and a.mem_name like '%'||#mem_name#||'%')
+   </select>
+   
+   <delete id="deleteFriend" parameterClass="memFriendVo">
+      delete from friend where (mem_id=#mem_id# and home_id=#home_id#) 
+      or (home_id = (select home_id from home where mem_id= #mem_id#) and mem_id = (select mem_id from home where home_id = #home_id#))
+
+   </delete>
+
+<!--    <delete id="deleteFriend2" parameterClass="String"> -->
+<!--       delete from friend where home_id = (select home_id from home where mem_id= #mem_id#) -->
+<!--         and mem_id = (select mem_id from home where home_id = #home_id#) -->
+<!--    </delete> -->
+</sqlMap>

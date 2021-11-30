@@ -1,0 +1,43 @@
+package storyroom.dao;
+
+import java.sql.SQLException;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import util.SqlMapClientFactory;
+import vo.StoryRoomVO;
+
+public class StoryDaoImpl implements IStoryDao {
+	
+	private static StoryDaoImpl dao;
+	private SqlMapClient smc;
+	private StoryDaoImpl() {
+		smc = SqlMapClientFactory.getSqlMapClient();
+	}
+	public static StoryDaoImpl getInstance() {
+		if(dao==null) dao = new StoryDaoImpl();
+		return dao;
+	}
+	
+	@Override
+	public StoryRoomVO getStory(String rName) {
+		StoryRoomVO storyVo = null;
+		try {
+			storyVo = (StoryRoomVO) smc.queryForObject("story.getRoomImg",rName);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return storyVo;
+	}
+	@Override
+	public StoryRoomVO getMinimi(String rName) {
+		StoryRoomVO storyVo = null;
+		try {
+			storyVo = (StoryRoomVO) smc.queryForObject("story.getMinimiImg",rName);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return storyVo;
+	}
+
+}

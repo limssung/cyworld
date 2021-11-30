@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>사이좋은 사람들 싸이월드에 오신 것을 환영합니다.</title>
+<link rel ="shortcut icon" type="image/x-icon" href="images/cy_logo.png">
+<style>
+div {
+	margin: 1px;
+	width: auto;
+	padding: 1px;
+	border-radius: 10px;
+	box-sizing: border-box;
+	overflow: auto;
+}
+
+#header {
+	background: #EDEDED;
+	width: auto;
+	height: 60px;
+	overflow: hidden;
+	text-align: right;
+}
+
+#content {
+	border: 1px solid white;
+	background: white;
+	width: auto;
+	height: 800px;
+	float: center;
+}
+
+iframe {
+	width: 99%;
+	height: 780px;
+	overflow: inherit;
+	float: inherit;
+	border: none;
+}
+
+#nav1 {
+	background: #EDEDED;
+	width: auto;
+	height: 60px;
+	overflow: hidden;
+	text-align: center;
+}
+
+#nav2 {
+	border: 1px solid #EDEDED;
+	background: #EDEDED;
+	width: 200px;
+	height: 800px;
+	float: left;
+	overflow: visible;
+	text-decoration: none;
+}
+
+#nav3 {
+	border: 1px solid #EDEDED;
+	background: #EDEDED;
+	width: 200px;
+	height: 800px;
+	float: right;
+	overflow: hidden;
+	color: black;
+}
+
+#liIn {
+	display: inline;
+	padding: 35px;
+}
+
+/* #li1 { */
+/* 	border: 0.5px solid #EDEDED; */
+/* 	background: #EDEDED; */
+/* 	list-style-type: none; */
+/* 	padding: 20px; */
+/* 	width: auto; */
+/* 	text-decoration: none; */
+/* } */
+
+#footer {
+	background: #EDEDED;
+	clear: both;
+	color: white;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+	text-align: top;
+}
+
+h5 {
+	text-align: center;
+}
+</style>
+
+	<div id="header"><br>
+		<li id="liIn"><a href="/login.do" target="ifr">로그인</a></li>
+		<li id="liIn"><a href="#" target="ifr">장바구니</a></li>
+		<li id="liIn"><a href="main/joinTest.html" target="ifr">회원가입</a></li>
+	</div>
+</head>
+<body>
+	<div>
+		<div id="nav1">
+			<br>
+			<li id="liIn"><a href="main.html">Home</a></li>
+			<li id="liIn"><a href="aboutus.html" target="ifr">About us</a></li>
+			<li id="liIn"><a href="news.html" target="ifr">News</a></li>
+			<li id="liIn"><a href="joinTest.html" target="ifr">My Account</a></li>
+			<li id="liIn"><a href="contact.html" target="ifr">Contact</a></li>
+		</div>
+<!-- 		<div> -->
+<!-- 			<div id="nav2"> -->
+<!-- 				<aside id="left"> -->
+<!-- 					<br> -->
+<!-- 					<br> -->
+<!-- 					<br> -->
+<!-- 					<br> -->
+<!-- 					<li id="li1"><a href="franceteam.html" target="ifr">France -->
+<!-- 							Team</a></li> -->
+<!-- 					<li id="li1"><a href="coach.html" target="ifr">Coach</a></li> -->
+<!-- 					<li id="li1"><a href="player.html" target="ifr">Player</a></li> -->
+<!-- 					<li id="li1"><a href="pastResult.html" target="ifr">Past -->
+<!-- 							Result</a></li> -->
+<!-- 					<li id="li1"><a href="shop.html" target="ifr"x`>Shop</a></li> -->
+<!-- 				</aside> -->
+<!-- 			</div> -->
+<!-- 			<aside id="rihgt"> -->
+<!-- 				<div id="nav3"> -->
+<!-- 					<br><h2>Shopping Cart</h2> -->
+<!-- 					<span><h6>현재 쇼핑카트에 물품이 없습니다.</h6></span><br> -->
+					
+<!-- 					<a href="wwww.naver.com" >쇼핑카트 보기</a> -->
+<!-- 					<br><h2>Log In</h2><br> -->
+					
+<!-- 					<form> -->
+<!-- 						<table> -->
+<!-- 							<tr> -->
+<!-- 								<td>아이디</td> -->
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<td><input type="text" /></td> -->
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<td>패스워드</td> -->
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<td><input type="text" /> </td> -->
+<!-- 							</tr> -->
+<!-- 						</table> -->
+<!-- 						<br> -->
+<!-- 						<button>로그인</button> -->
+<!-- 						<button>초기화</button> -->
+<!-- 						<br> -->
+<!-- 						<a href="input.html">회원가입</a> -->
+<!-- 						<a href="wwww.naver.com" >비밀번호 분실</a> -->
+<!-- 					</form> -->
+					
+<!-- 				</div> -->
+				<div id="content">
+					<article id="article1">
+						<iframe src="<%=request.getContextPath()%>/login.jsp" name="ifr"> </iframe>
+					</article> 
+				</div>
+			</aside>
+		</div>
+		<div id="footer">
+			<br>
+			<h5>
+				주소 : 대전광역시 중구 중앙로 76 영민빌딩 4층<br>
+				<br> 대표전화 : 042-222-8202팩스: 042-252-0678<br>
+			</h5>
+		</div>
+	</div>
+</body>
+</html>

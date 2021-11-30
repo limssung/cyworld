@@ -1,0 +1,175 @@
+<%@page import="vo.StoryRoomVO"%>
+<%@page import="storyroom.service.StoryServiceImpl"%>
+<%@page import="storyroom.service.IStoryService"%>
+<%@page import="member.service2.MemberServiceImpl2"%>
+<%@page import="member.service2.IMemberService2"%>
+<%@page import="home.service.HomeServiceImpl"%>
+<%@page import="home.service.IHomeService"%>
+<%@page import="vo.MemberVO"%>
+<%@page import="vo.HomeVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Single+Day&display=swap');
+body{
+	font-family: 'Single Day', cursive;
+}
+html,body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: white;
+}
+#total{
+    width: 30%;
+    position: absolute;
+    display: inline;
+    left: 7%;
+    top: 3%;
+}
+#title{
+	display: inline;
+    position: absolute;
+    left: 40%;
+    top: 3%;
+}
+#uploadBtn{
+    width: 9%;
+    position: absolute;
+    top: 41.5%;
+    left: 2%;
+}
+#uploadBtn2{
+    position: absolute;
+    top: 41.5%;
+    left: 12%;
+}
+#myTextarea{
+	position: absolute;
+    top: 50%;
+    width: 24%;
+    height: 20%;
+    left: 1%;
+}
+#textBtn{
+	position: absolute;
+    top: 72%;
+    left: 2%;
+}
+</style>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#textBtn").on("click",function(){
+		newText = $("#myTextarea").val();
+		homeId = $("#homeId").val();
+		
+		$.ajax({
+			url : '/textChange.do',
+			data : {'newText' : newText, 'homeId' : homeId},
+			success : function(res){
+				alert("수정되었습니다.");
+			},
+			error : function(xhr){
+				alert(xhr.status);
+			},
+			dataType : 'json'
+			
+						
+		})
+		
+	})
+})
+</script>
+
+</head>
+<body>
+<!-- 방문자수 total-->
+<%
+	//로그인한 회원의 mem_id와 home_id
+	String userid = (String)session.getAttribute("userId");
+	String homeId = (String)session.getAttribute("homeChk");
+	//친구의 mem_id와 home_id
+	String friendId = (String)session.getAttribute("friendId");
+	String friendHomeId = (String)session.getAttribute("friendHomeId");
+	
+%>
+
+<%
+	//친구 아이디값이 있으면 로그인세션값에서 받아온 
+	//memId, homeId를 친구의 값으로 바꿔준다
+	if(friendId!=null){
+		userid = friendId;
+		homeId = friendHomeId;
+	}
+
+	IHomeService service = HomeServiceImpl.getInstance();
+	IMemberService2 service2 = MemberServiceImpl2.getInstance();
+	HomeVO homeVo = service.getHomeInfo(userid);
+	session.setAttribute("homeVo", homeVo);
+	MemberVO memVo = service2.getMemInfo(userid);
+	request.setAttribute("homeVo", homeVo);
+	request.setAttribute("memVo", memVo);
+	
+	IStoryService service3 = StoryServiceImpl.getInstance();
+    StoryRoomVO storyVo = service3.getStory(homeId);
+    StoryRoomVO minimiVo = service3.getMinimi(homeId);
+
+%>
+
+<!-- 자신이 방문하면 방문자수 증가X, 남이 방문하면 방문자수 1 증가 (검색이나 파도타기에서 클릭했을때 1 증가해야함) -->
+<div id="total" style="text-size:1.1em;">TOTAL | <%=homeVo.getHome_count() %></div>
+
+<!-- 미니홈피 타이틀 -->
+<div id="title" style="text-size:1.3em;">♥<%=memVo.getMem_name() %>♥님의 미니홈피</div>
+
+<!-- 프로필 사진 -->
+<img src="<%=homeVo.getHome_pic() %>" 
+style="position: absolute; height: 30%; width: 25%; top: 11%; left: 1%;"><br>
+<% if(friendId ==null){}
+ %>
+<!-- 프로필사진 업로드&확인버튼 -->
+<form method="post" action="/homePicUpload.do" enctype="multipart/form-data">
+<input type="file" id="uploadBtn" name="uploadfile" value="사진업로드"/>
+<input type="hidden"  name="homeId" value="<%=homeId%>"/>
+<input id="uploadBtn2" type="submit" value="확인"/>
+</form>
+
+<!-- 프로필문구 출력, 수정 -->
+<form>
+<textarea id="myTextarea" name="text"><%=homeVo.getHome_text() %></textarea>
+<input type="button" id="textBtn" name="textBtn" value="edit">
+<input type="hidden" id="homeId" name="homeId" value="<%=homeId %>">
+</form>
+
+<!-- 일촌신청 및 일촌파도타기 -->
+<!-- <button type="button" value="일촌신청" name="insert_friend" id="insertFrinedBtn">일촌신청</button> -->
+
+
+<!-- 내 아이템에서 적용한 스토리룸 출력 -->
+<img style="
+    position: absolute;
+    width: 60%;
+    height: 50%;
+    top: 45%;
+    left: 35%;
+" src="<%=storyVo.getProd_url() %>">
+
+<!-- 내 아이템에서 적용한 미니미 출력 -->
+
+<img style="
+    position: absolute;
+    width: 15%;
+    height: 24%;
+    top: 65%;
+    left: 45%;
+	"src="<%=minimiVo.getProd_url()%>">
+
+
+</body>
+</html>

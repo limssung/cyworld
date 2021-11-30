@@ -1,0 +1,139 @@
+<%@page import="vo.MemberVO"%>
+<%@page import="vo.HomeVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+
+</script>
+<style>
+#text{
+	border: 1px solid;
+	width: 100px;
+	height: 120px;
+}
+html,body {  <!-- 컨텐츠  전체 -->
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+#backgr{
+	margin: 0;
+	width: 100%;
+    height: 100%;
+	background-color: lightgray;  <!-- 컨텐츠 밖 배경화면.스킨 설정부분-->	
+	
+}
+
+.btn1{
+	padding-top : 40%;
+	padding-left : 79%;
+	display:inline;
+
+}
+#btnAll{
+	position: absolute;
+	top: 65px;
+    left: 74.85%;
+}
+#frame{
+	display: inline;
+}
+#list{
+	position: absolute;
+	top: 65px;
+    left: 90%;
+}
+</style>
+</head>
+<body>
+<div id="backgr">
+<!-- <div id="container"> -->
+<%
+	String userid = (String)session.getAttribute("userId");
+	String homeId = (String)session.getAttribute("homeChk");
+	HomeVO homeVo = (HomeVO)request.getAttribute("homeVo");
+	MemberVO memVo =(MemberVO)request.getAttribute("memVo");
+%>
+
+
+<%-- <div id="header">
+방문자수 | <%=homeVo.getHome_count() %>
+
+
+<%=memVo.getMem_name() %>님의 미니홈피<br>
+</div>
+
+프로필 소개글 <br>
+<div id="text">
+<%=homeVo.getHome_text() %>
+
+</div>
+<button id="textEdit">edit</button> --%>
+
+<!-- 일촌신청 버튼. 타인의 홈페이지에 들어갈때만 보여야함. -->
+<!-- <button type="button" value="일촌신청" name="insert_friend" id="insertFrinedBtn">일촌신청</button> -->
+
+
+
+<div style="position:absolute; width:75%; height:85%; top:50px; left:40px; display: block;">
+
+<iframe id="frame" src="<%=request.getContextPath()%>/myMinihome/miniHomeContents.jsp"
+width="100%" height="100%" scrolling="no" frameborder="0">
+ </iframe>
+ </div>
+ 
+<!--버튼 추후 수정-->
+<ul id="list" style position="absolute"; top= "65%"; left= "90%";>
+	<li><a href = "/myMinihome/miniHomeMain.jsp">홈</a></li>
+	<li><a href = "/myMinihome/boardMain.jsp">게시판</a></li>
+	<li><a href = "/myMinihome/photoMain.jsp">사진첩</a></li>
+	<li><a href = "/myMinihome/guestMain.jsp">방명록</a></li>
+	<li><a href = "/myMinihome/SettingMain.jsp">관리</a></li>
+</ul>
+
+
+
+
+<div id="btnAll">
+
+<form class="btn1" action="<%=request.getContextPath()%>/myMinihome/miniHomeMain.jsp">
+<button>홈</button>
+</form>
+<br>
+
+<form class="btn1" action="<%=request.getContextPath()%>/myMinihome/boardMain.jsp">
+<input type="hidden" name="homeId"  value="<%=homeId %>">
+<button>게시판</button>
+</form>
+<br>
+
+<form class="btn1" action="<%=request.getContextPath()%>/myMinihome/photoMain.jsp">
+<input type="hidden" name="homeId"  value="<%=homeId %>">
+<button>사진첩</button>
+</form>
+<br>
+
+<form class="btn1" action="<%=request.getContextPath()%>/myMinihome/guestMain.jsp">
+<input type="hidden" name="homeId"  value="<%=homeId %>">
+<button>방명록</button>
+</form>
+<br>
+
+<form class="btn1" action="<%=request.getContextPath()%>/myMinihome/SettingMain.jsp">
+<input type="hidden" name="homeId"  value="<%=homeId %>">
+<button>관리</button>
+</form>
+<br>
+
+</div>
+
+
+</div>
+</body>
+</html>

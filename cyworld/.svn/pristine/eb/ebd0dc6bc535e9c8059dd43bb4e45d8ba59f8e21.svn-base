@@ -1,0 +1,73 @@
+<%@page import="java.util.List"%>
+<%@page import="vo.MemberFriendVO"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#deleteFriend").on("click",function(){
+		$("#friendForm").attr("action","<%=request.getContextPath()%>/friendDelete.do");
+		$("#friendForm").submit();
+	});
+	
+});
+
+</script>
+<style>
+ #myList{
+ 	width : 600px;
+ 	height : 50px;
+ 	border-radius: 10px;
+ 	background :#D8D8D8;
+ 	font-size : 25px;
+ 	line-height : 52px;
+ 
+ }
+ 
+</style>
+</head>
+<body>
+
+<%
+	List<MemberFriendVO> memFriendList = (List<MemberFriendVO>)request.getAttribute("AllFriendList");
+%>
+<div id="myList"> <b>나의 일촌 목록</b></div>
+<form id="friendForm">
+<table border="1" style="border-collapse: collapse; width:600px; height: 200px; ">
+<!-- <tr > -->
+<!-- 	<td colspan="3" style="background:#D8D8D8">나의 일촌 목록</td> -->
+<!-- </tr> -->
+<%
+
+if(memFriendList == null|| memFriendList.size()==0){
+%>
+<tr><td colspan="3">일촌을 맺은 친구가 한 명도 없습니다.</td></tr>
+<%
+
+}else{
+	for(MemberFriendVO memList : memFriendList){
+%>
+<tr>
+<td><%=memList.getHome_pic() %></td>
+<td><%=memList.getMem_name() %><span>(</span><%=memList.getMem_id() %><span>)</span></td>
+<td><img src="./images/delete.png" alt="친구삭제" style="width:30px" id="deleteFriend"></td>
+</tr>
+<input type="hidden" name="mem_id" id="mem_id" value="<%=memList.getMem_id() %>">
+<input type="hidden" name="home_id" id="home_id" value="<%=request.getAttribute("homeId") %>">
+
+<%
+
+	}
+}
+
+%>		
+
+</table>
+</form>
+</body>
+</html>

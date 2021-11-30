@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+   PUBLIC "-ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="cart">
+
+	<insert id="insertCart" parameterClass="String">
+		INSERT INTO cart (
+		    order_no,
+		    prod_id
+		) VALUES (
+		    order_no_seq.nextval,
+		    #prod_id#
+		)
+	</insert>
+
+	<select id="viewCart" parameterClass="String" resultClass="cartVo">
+		SELECT
+		    a.order_no,
+		    a.prod_id,
+		    a.cart_qty,
+		    a.cart_price,
+		    a.cart_set,
+		    b.prod_url,
+		    c.prod_name,
+		    d.lprod_name
+		FROM
+		    cart a, prod_img b, prod c, lprod d
+		where a.cart_set='N' 
+		  and a.cart_price > 0 
+		  and a.order_no in (select order_no from ordered where mem_id=#mem_id# and order_set='N')
+		  and A.prod_id = b.prod_id
+		  and A.prod_id = c.prod_id
+		  and d.lprod_id = c.lprod_id
+	</select>
+
+  	<insert id="addCart" parameterClass="map">
+  		INSERT INTO cart (
+		    order_no,
+		    prod_id,
+		    cart_qty,
+		    cart_price,
+		    cart_set
+		) VALUES (
+		    (select max(order_no) from ordered where mem_id = #memId#),
+		    #prod1#,
+		    1,
+		    (select prod_price from prod where prod_id = #prod2#),
+		    'N'
+		)
+  	
+  	</insert>
+
+	<update id="payCart" parameterClass="String">	
+		UPDATE cart
+		    SET
+		        cart_set = 'Y'
+		WHERE
+		    order_no in (select order_no from ordered where mem_id = #mem_id#)
+	</update>
+   
+
+
+</sqlMap>
+   

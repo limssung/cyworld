@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="story">
+
+	<!-- 해당 홈아이디의 적용Y 체크된 스토리룸 이미지 -->
+	<select id="getRoomImg" parameterClass="String" resultClass="storyVO">
+	select prod_url from prod_img where prod_id in(select prod_id from mypage where home_id= #homeId# and prod_set='Y') and substr(prod_url,4,1)='r'
+	</select>
+	
+	<select id="getMinimiImg" parameterClass="String" resultClass="storyVO">
+	select prod_url from prod_img where prod_id in(select prod_id from mypage where home_id= #homeId# and prod_set='Y') and substr(prod_url,4,1)='m'
+	</select>
+	
+	<!-- 해당 홈아이디가 구매한 상품 목록 이미지 불러오는쿼리 -->
+	<!-- 구입한 미니미 목록 -->
+	<select id="myListMinimi" parameterClass="String" resultClass="storyVO">
+	select prod_url from prod_img where prod_id in(select prod_id from mypage where home_id= #homeId#) and substr(prod_url,4,1)='m'
+	</select>
+
+	
+</sqlMap>
+	

@@ -1,0 +1,34 @@
+package storyroom.service;
+
+import storyroom.dao.IStoryDao;
+import storyroom.dao.StoryDaoImpl;
+import vo.StoryRoomVO;
+
+public class StoryServiceImpl implements IStoryService {
+	private IStoryDao storyDao;
+	
+	private static StoryServiceImpl service;
+	
+	private StoryServiceImpl() {
+		storyDao = StoryDaoImpl.getInstance();
+	}
+	public static StoryServiceImpl getInstance() {
+		if(service==null) service = new StoryServiceImpl();
+		return service;
+		
+	}
+	
+	
+	@Override
+	public StoryRoomVO getStory(String rName) {
+		return storyDao.getStory(rName);
+	}
+	
+	@Override
+	public StoryRoomVO getMinimi(String rName) {
+		return storyDao.getMinimi(rName);
+	}
+
+
+
+}

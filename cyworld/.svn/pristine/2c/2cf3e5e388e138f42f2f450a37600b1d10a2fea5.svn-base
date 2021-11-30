@@ -1,0 +1,6 @@
+package ordered.service;
+
+public interface IOrderedService {
+
+	public int updateOrdered(String userId);
+}

@@ -1,0 +1,8 @@
+package mypage.dao;
+
+import java.util.Map;
+
+public interface IMypageDao {
+
+	public int insertProd(Map<String, String> map); // 결제완료된 상품 인서트
+}

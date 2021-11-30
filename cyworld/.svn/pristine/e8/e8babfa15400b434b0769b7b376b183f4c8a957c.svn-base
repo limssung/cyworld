@@ -1,0 +1,26 @@
+package ordered.service;
+
+import ordered.dao.IOrderedDao;
+import ordered.dao.OrderedDaoImpl;
+
+public class OrderedServiceImpl implements IOrderedService {
+
+	private IOrderedDao dao;
+	
+	private static OrderedServiceImpl service;
+	
+	private OrderedServiceImpl() {
+		dao = OrderedDaoImpl.getInstance();
+	}
+	
+	public static OrderedServiceImpl getInstance() {
+		if(service == null) service = new OrderedServiceImpl();
+		return service;
+	}
+
+	@Override
+	public int updateOrdered(String userId) {
+		// TODO Auto-generated method stub
+		return dao.updateOrdered(userId);
+	}	
+}

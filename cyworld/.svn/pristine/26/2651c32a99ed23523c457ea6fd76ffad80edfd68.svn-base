@@ -1,0 +1,8 @@
+package mypage.service;
+
+import java.util.Map;
+
+public interface IMypageService {
+
+	public int insertProd(Map<String, String> map); // 결제완료된 상품 인서트
+}

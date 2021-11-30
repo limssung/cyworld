@@ -1,0 +1,9 @@
+package storyroom.service;
+
+import vo.StoryRoomVO;
+
+public interface IStoryService {
+	public StoryRoomVO getStory(String rName);
+	
+	public StoryRoomVO getMinimi(String rName);
+}

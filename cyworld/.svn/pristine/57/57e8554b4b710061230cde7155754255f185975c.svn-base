@@ -1,0 +1,13 @@
+package storyroom.dao;
+
+import java.util.List;
+
+import vo.StoryRoomVO;
+
+public interface IStoryDao {
+	public StoryRoomVO getStory(String rName);
+	
+	public StoryRoomVO getMinimi(String rName);
+	
+//	public List<StoryRoomVO> 
+}

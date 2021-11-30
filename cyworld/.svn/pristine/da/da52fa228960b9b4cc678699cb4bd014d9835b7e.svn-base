@@ -1,0 +1,70 @@
+package friend.dao;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.charset.Charset;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ibatis.common.resources.Resources;
+import com.ibatis.sqlmap.client.SqlMapClient;
+import com.ibatis.sqlmap.client.SqlMapClientBuilder;
+
+import util.SqlMapClientFactory;
+import vo.FriendVO;
+import vo.MemberFriendVO;
+
+public class FriendDaoImpl implements IFriendDAO {
+
+	private static FriendDaoImpl dao;
+	private SqlMapClient smc;
+	
+	private FriendDaoImpl() {
+		smc = SqlMapClientFactory.getSqlMapClient();
+			
+	}
+	
+	public static FriendDaoImpl getInstance() {
+		if(dao==null) dao=new FriendDaoImpl();
+		return dao;
+	}
+
+	@Override
+	public List<MemberFriendVO> getAllFriend(String homeId) {
+		
+		List<MemberFriendVO> friendlist = new ArrayList<>();
+		
+		try {
+			friendlist = smc.queryForList("friend.getAllFriend",homeId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return friendlist;
+	}
+
+	@Override
+	public List<MemberFriendVO> friendList(String homeId) {
+		List<MemberFriendVO> allFriendList  = new ArrayList<>();
+		
+		try {
+			allFriendList = smc.queryForList("friend.friendList", homeId);
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return allFriendList;
+	}
+
+	@Override
+	public int deleteFriend(MemberFriendVO memfriendVo) {
+		int cnt = 0;
+		try {
+			cnt = smc.delete("friend.deleteFriend",memfriendVo );
+		} catch (SQLException e) {
+			cnt = 0;
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+
+}

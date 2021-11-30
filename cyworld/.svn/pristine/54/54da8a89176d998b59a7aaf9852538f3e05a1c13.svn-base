@@ -1,0 +1,33 @@
+package home.dao;
+
+import java.sql.SQLException;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
+
+import util.SqlMapClientFactory;
+import vo.HomeVO;
+
+public class HomeDaoImpl implements IHomeDao {
+	private static HomeDaoImpl dao;
+	private SqlMapClient smc;
+	private HomeDaoImpl() {
+		smc = SqlMapClientFactory.getSqlMapClient();
+	}
+	public static HomeDaoImpl getInstance() {
+		if(dao==null) dao = new HomeDaoImpl();
+		return dao;
+	}
+	@Override
+	public HomeVO getHomeInfo(String memId) {
+		HomeVO homeVo = null;
+		try {
+			homeVo = (HomeVO) smc.queryForObject("home.getHomeInfo",memId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return homeVo;
+	}
+	
+
+
+}

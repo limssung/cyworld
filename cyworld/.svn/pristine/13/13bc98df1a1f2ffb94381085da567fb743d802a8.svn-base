@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+   PUBLIC "-ibatis.apache.org//DTD SQL Map 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="member">
+
+
+   <select id="loginCheck" parameterClass="memberVO" resultClass="String">
+      select count(*) from member
+      where mem_id = #mem_id# and mem_pass= #mem_pass#
+      
+   </select> 
+   
+   <!-- parameterClass : sqlMapConfig에 적은 typeAlias alias="memberVO" <요놈을 적으면된다 -->
+
+	<select id="loginCheck" parameterClass="memberVO" resultClass="String">
+		select count(*) from member
+		where mem_id = #mem_id# and mem_pass= #mem_pass#
+		
+	</select>
+	
+	<!-- parameterClass : sqlMapConfig에 적은 typeAlias alias="memberVO" <요놈을 적으면된다 -->
+
+	<select id="loginCheck" parameterClass="memberVO" resultClass="String">
+		select count(*) from member
+		where mem_id = #mem_id# and mem_pass= #mem_pass#
+		
+	</select> 
+	
+	<!-- parameterClass : sqlMapConfig에 적은 typeAlias alias="memberVO" <요놈을 적으면된다 -->
+
+  <insert id="insertMember" parameterClass="memberVO">
+   insert into member
+   (
+       mem_id, mem_pass, mem_name, mem_bir, mem_gender,
+       mem_tel, mem_mail, mem_addr1, mem_addr2, mem_zip
+    )
+   values(
+       #mem_id#, #mem_pass#, #mem_name#, #mem_bir#, #mem_gender#,
+       #mem_tel#, #mem_mail#, #mem_addr1#, #mem_addr2#, #mem_zip#
+    )
+  </insert>
+  
+       <select id="getMemInfo" parameterClass="String" resultClass="memberVO">
+       select * from member where mem_id = #memId#
+       </select>
+       
+   
+
+   <!-- 
+      Map을 파라미터로 받아서 처리할 때 변수명은 Map의 key값으로 한다.
+      
+      파라미터로 가져온 값을 컬럼명등의 자리에 사용할 경우에는 달러($)기호를 사용해서
+      나타낸다. 예) $변수명$  또는  $key값$
+      
+    -->
+<!--    <update id="memberUpdate2" parameterClass="java.util.Map"> -->
+<!--       update mymember set  $field$ = #data#  -->
+<!--       where mem_id = #memId# -->
+<!--    </update> -->
+   
+<!--    <insert id="insertMember" parameterClass="memberVo"> -->
+<!--       insert into mymember (mem_id, mem_pass, mem_name, mem_tel, mem_addr)  -->
+<!--       values (#mem_id#, #mem_pass#, #mem_name#, #mem_tel#, #mem_addr#) -->
+<!--    </insert> -->
+   
+<!--    <delete id="deleteMember" parameterClass="String"> -->
+<!--       delete from mymember where mem_id = #mem_id# -->
+<!--    </delete> -->
+   
+<!--    <update id="updateMember" parameterClass="memberVo"> -->
+<!--       update mymember set  -->
+<!--          mem_pass=#mem_pass#,  -->
+<!--          mem_name=#mem_name#,  -->
+<!--          mem_tel=#mem_tel#,  -->
+<!--          mem_addr=#mem_addr#  -->
+<!--       where mem_id=#mem_id# -->
+<!--    </update> -->
+   
+<!--    <select id="getAllMember" resultClass="memberVo"> -->
+<!--       select * from mymember -->
+<!--    </select> -->
+
+<!--    <select id="getMember" parameterClass="string" resultClass="memberVo"> -->
+<!--       select * from mymember where mem_id = #mem_id# -->
+<!--    </select> -->
+   
+<!--    <select id="getMemberCount" parameterClass="String" resultClass="int"> -->
+<!--       select count(*) cnt from mymember where mem_id = #mem_id# -->
+<!--    </select> -->
+
+</sqlMap>
+   
